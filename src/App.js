@@ -308,19 +308,14 @@ const App = () => {
                 {renderContent()}
               </div>
             </div>
-            <div className="footer-container">
-              {/* <img
-                alt="Twitter Logo"
-                className="twitter-logo"
-                src={twitterLogo}
-              /> */}
+            {/* <div className="footer-container">
               <a
                 className="footer-text"
                 href={GITHUB_LINK}
                 target="_blank"
                 rel="noreferrer"
               >{`built by @${GITHUB_HANDLE}`}</a>
-            </div>
+            </div> */}
           </main>
         </div>
       </div>
