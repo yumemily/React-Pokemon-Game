@@ -133,17 +133,16 @@ const SelectCharacter = ({ setCharacterNFT }) => {
 
   return (
     <div className="select-character-container">
-      <h2>Mint Your Hero. Choose wisely.</h2>
-      {characters.length > 0 && (
-        <div className="character-grid">{renderCharacters()}</div>
-      )}
+      <h5>Mint Your Pokemon! Choose wisely.</h5>
       {mintingCharacter && (
         <div className="loading">
           <div className="indicator">
             <LoadingIndicator />
-            <p>Minting In Progress...</p>
           </div>
         </div>
+      )}
+      {characters.length > 0 && (
+        <div className="character-grid">{renderCharacters()}</div>
       )}
     </div>
   );
