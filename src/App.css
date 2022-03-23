@@ -87,8 +87,8 @@ body {
   animation: gradient-animation 4s ease infinite;
 }
 
-.connect-wallet-button .inactive {
-  cursor: default;
+.inactive:hover {
+  cursor: not-allowed;
 }
 
 .mint-button {

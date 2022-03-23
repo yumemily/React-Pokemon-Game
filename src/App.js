@@ -150,7 +150,26 @@ const App = () => {
     if (isLoading) {
       return <LoadingIndicator />;
     }
-    if (view === "connect" && !currentAccount) {
+    if (view === "connect" && connectedToRinkeby === "not connected") {
+      return (
+        <div className="connect-wallet-container">
+          <img
+            src="https://media.giphy.com/media/8UGGp7rQvfhe63HrFq/giphy.gif"
+            alt="Monty Python Gif"
+          />
+          <button
+            className={`cta-button connect-wallet-button inactive`}
+            // onClick={connectWalletAction}
+          >
+            Please make sure you're on the Rinkeby network.
+          </button>
+        </div>
+      );
+    } else if (
+      view === "connect" &&
+      !currentAccount &&
+      connectedToRinkeby === "connected"
+    ) {
       return (
         <div className="connect-wallet-container">
           <img
@@ -168,7 +187,12 @@ const App = () => {
           </button>
         </div>
       );
-    } else if (view === "connect" && currentAccount && characterNFT) {
+    } else if (
+      view === "connect" &&
+      currentAccount &&
+      characterNFT &&
+      connectedToRinkeby === "connected"
+    ) {
       return <div>MetaMask connected. Feel free to battle in the arena!</div>;
     } else if (
       view === "connect" &&
