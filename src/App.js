@@ -221,6 +221,8 @@ const App = () => {
       view === "battle"
     ) {
       return <h4>You need a pokemon to battle!</h4>;
+    } else if (!currentAccount && view === "battle") {
+      return <h4>You need to login through Metamask first.</h4>;
     }
   };
 
