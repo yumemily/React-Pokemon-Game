@@ -24,17 +24,23 @@ const App = () => {
 
   const [connectedToRinkeby, setConnectedToRinkeby] = useState("not connected");
 
+  const { ethereum } = window;
+
   const metaMaskStatusColor = currentAccount ? "on" : "off";
   const networkStatusColor = connectedToRinkeby === "connected" ? "on" : "off";
 
   const checkNetwork = async () => {
     try {
-      let chainId = await window.ethereum.request({ method: "eth_chainId" });
-      console.log(chainId);
-      if (chainId === "0x4") {
-        setConnectedToRinkeby("connected");
+      if (!ethereum || ethereum.isMetaMask) {
+        return;
       } else {
-        setConnectedToRinkeby("not connected");
+        let chainId = await window.ethereum.request({ method: "eth_chainId" });
+        console.log(chainId);
+        if (chainId === "0x4") {
+          setConnectedToRinkeby("connected");
+        } else {
+          setConnectedToRinkeby("not connected");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -44,9 +50,9 @@ const App = () => {
   const checkIfWalletIsConnected = async () => {
     try {
       // check if we have access to window.ethereum
-      const { ethereum } = window;
+      // const { ethereum } = window;
 
-      if (!ethereum && !ethereum.isMetaMask) {
+      if (!ethereum || !ethereum.isMetaMask) {
         console.log("Make sure you have MetaMask!");
         setIsLoading(false);
         return;
@@ -75,7 +81,7 @@ const App = () => {
 
   const connectWalletAction = async () => {
     try {
-      const { ethereum } = window;
+      // const { ethereum } = window;
       if (!ethereum) {
         alert("Get MetaMask!");
         return;
@@ -94,24 +100,31 @@ const App = () => {
 
   // this runs the functions when App component first renders!
   useEffect(() => {
-    setIsLoading(true);
-    checkNetwork();
-    checkIfWalletIsConnected();
+    if (ethereum) {
+      setIsLoading(true);
+      checkNetwork();
+      checkIfWalletIsConnected();
+    }
   }, []);
 
   useEffect(() => {
-    // The "any" network will allow spontaneous network changes
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    provider.on("network", (newNetwork, oldNetwork) => {
-      // When a Provider makes its initial connection, it emits a "network"
-      // event with a null oldNetwork along with the newNetwork. So, if the
-      // oldNetwork exists, it represents a changing network
-      if (oldNetwork) {
-        console.log("network changed");
-        window.location.reload();
-        checkNetwork();
-      }
-    });
+    if (ethereum) {
+      // The "any" network will allow spontaneous network changes
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum,
+        "any"
+      );
+      provider.on("network", (newNetwork, oldNetwork) => {
+        // When a Provider makes its initial connection, it emits a "network"
+        // event with a null oldNetwork along with the newNetwork. So, if the
+        // oldNetwork exists, it represents a changing network
+        if (oldNetwork) {
+          console.log("network changed");
+          window.location.reload();
+          checkNetwork();
+        }
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -147,9 +160,6 @@ const App = () => {
 
   // Render Methods
   const renderContent = () => {
-    if (isLoading) {
-      return <LoadingIndicator />;
-    }
     if (view === "connect" && connectedToRinkeby === "not connected") {
       return (
         <div className="connect-wallet-container">
@@ -161,7 +171,9 @@ const App = () => {
             className={`cta-button connect-wallet-button inactive`}
             // onClick={connectWalletAction}
           >
-            Please make sure you're on the Rinkeby network.
+            {ethereum
+              ? "Please make sure you're on the Rinkeby network."
+              : "You need the MetaMask extension!"}
           </button>
         </div>
       );
@@ -229,15 +241,15 @@ const App = () => {
   return (
     <div className="App">
       {/* Navbar */}
-      {/* <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      {/* <nav className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <div>
-          <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+          <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
             Company name
           </a>
         </div>
-        <ul class="navbar-nav px-3">
-          <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">
+        <ul className="navbar-nav px-3">
+          <li className="nav-item text-nowrap">
+            <a className="nav-link" href="#">
               Sign out
             </a>
           </li>
@@ -247,9 +259,9 @@ const App = () => {
       <div className="container-fluid">
         <div className="row">
           {/* Nav Sidebar */}
-          <nav class="col-md-2 d-none d-md-block sidebar text-center ">
-            <div class="sidebar-sticky ">
-              <ul class="nav flex-column">
+          <nav className="col-md-2 d-none d-md-block sidebar text-center ">
+            <div className="sidebar-sticky ">
+              <ul className="nav flex-column">
                 <li className="nav-item logo mt-4 ">
                   <img
                     src="https://www.freepnglogos.com/uploads/pok-mon-go-logo-png-30.png"
@@ -270,9 +282,9 @@ const App = () => {
                     />
                   </div>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class={`nav-link active nav-link-button ${
+                    className={`nav-link active nav-link-button ${
                       view === "connect" ? "nav-active" : ""
                     }`}
                     href="#"
@@ -281,9 +293,9 @@ const App = () => {
                     Connect
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class={`nav-link active nav-link-button ${
+                    className={`nav-link active nav-link-button ${
                       view === "battle" ? "nav-active" : ""
                     }`}
                     href="#"
@@ -292,9 +304,9 @@ const App = () => {
                     Battle
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class={`nav-link active nav-link-button ${
+                    className={`nav-link active nav-link-button ${
                       view === "pokemon" ? "nav-active" : ""
                     }`}
                     href="#"
@@ -304,9 +316,9 @@ const App = () => {
                     Your Pokemon
                   </a>
                 </li>
-                <li class="nav-item">
+                <li className="nav-item">
                   <a
-                    class={`nav-link active nav-link-button ${
+                    className={`nav-link active nav-link-button ${
                       view === "marketplace" ? "nav-active" : ""
                     }`}
                     href="#"
@@ -324,7 +336,7 @@ const App = () => {
             role="main"
             class=" wrapper col-md-9 ml-sm-auto col-lg-10 pt-3 px-4"
           >
-            <div class="container content d-flex justify-content-center text-center">
+            <div className="container content d-flex justify-content-center text-center">
               <div className="header-container">
                 <p className="header gradient-text">⚔️ Pokemon Metaverse ⚔️</p>
 
