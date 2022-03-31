@@ -24,6 +24,8 @@ const App = () => {
 
   const [connectedToRinkeby, setConnectedToRinkeby] = useState("not connected");
 
+  // const [ethObject, setEthObject] = useState(undefined);
+
   const { ethereum } = window;
 
   const metaMaskStatusColor = currentAccount ? "on" : "off";
@@ -31,13 +33,13 @@ const App = () => {
 
   const checkNetwork = async () => {
     try {
-      if (!ethereum || ethereum.isMetaMask) {
+      if (!ethereum || !ethereum.isMetaMask) {
         return;
       } else {
         let chainId = await window.ethereum.request({ method: "eth_chainId" });
-        console.log(chainId);
         if (chainId === "0x4") {
           setConnectedToRinkeby("connected");
+          console.log("user is connected to rinkeby");
         } else {
           setConnectedToRinkeby("not connected");
         }
@@ -51,14 +53,12 @@ const App = () => {
     try {
       // check if we have access to window.ethereum
       // const { ethereum } = window;
-
       if (!ethereum || !ethereum.isMetaMask) {
         console.log("Make sure you have MetaMask!");
         setIsLoading(false);
         return;
       } else {
         console.log("We have the ethereum object", ethereum);
-
         /*
          * check if we're authorized to access user's wallet
          */
@@ -81,7 +81,6 @@ const App = () => {
 
   const connectWalletAction = async () => {
     try {
-      // const { ethereum } = window;
       if (!ethereum) {
         alert("Get MetaMask!");
         return;
@@ -100,6 +99,7 @@ const App = () => {
 
   // this runs the functions when App component first renders!
   useEffect(() => {
+    const { ethereum } = window;
     if (ethereum) {
       setIsLoading(true);
       checkNetwork();
@@ -156,7 +156,7 @@ const App = () => {
       console.log("CurrentAccount:", currentAccount);
       fetchNFTMetadata();
     }
-  }, [currentAccount]);
+  }, [currentAccount, connectedToRinkeby]);
 
   // Render Methods
   const renderContent = () => {

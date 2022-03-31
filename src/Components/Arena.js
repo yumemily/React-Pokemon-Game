@@ -1,3 +1,4 @@
+// this is the old arena component that i'm not using anymore
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { CONTRACT_ADDRESS, transformCharacterData } from "../constants";
