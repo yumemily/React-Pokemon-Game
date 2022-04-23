@@ -22,7 +22,7 @@ body {
 }
 
 .header-container {
-  padding-top: 30px;
+  padding: 30px 0px;
 }
 
 .header {
@@ -91,41 +91,6 @@ body {
   cursor: not-allowed;
 }
 
-.mint-button {
-  background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
-  background-size: 200% 200%;
-  animation: gradient-animation 4s ease infinite;
-  margin-right: 15px;
-}
-
-.opensea-button {
-  background-color: rgb(32, 129, 226);
-}
-
-.mint-count {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.footer-container {
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  padding: 30px;
-  text-align: center;
-}
-
-.twitter-logo {
-  width: 35px;
-  height: 35px;
-}
-
-.footer-text {
-  /* color: white; */
-  font-size: 16px;
-  font-weight: bold;
-}
 
 /* KeyFrames */
 @-webkit-keyframes gradient-animation {
@@ -247,129 +212,19 @@ body {
 
 /* Arena */
 
-.arena-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
-  color: white;
-}
-
-.arena-container .boss-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-bottom: 50px;
-}
-
-.boss-container .boss-content {
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  border-radius: 10px;
-  background-image: linear-gradient(
-    to right,
-    #ff8177 0%,
-    #ff867a 0%,
-    #ff8c7f 21%,
-    #f99185 52%,
-    #cf556c 78%,
-    #b12a5b 100%
-  );
-  background-size: 600% 600%;
-  animation: gradient-animation 8s ease infinite;
-  margin-bottom: 25px;
-}
-
-.boss-content h2 {
-  margin: 0;
-  padding: 5px 0 10px 0;
-}
-
-.boss-content .image-content,
-.player .image-content {
-  position: relative;
-}
-
-.boss-content .image-content img {
-  width: 350px;
-  height: 300px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.image-content .health-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30px;
-}
-
-.health-bar progress[value] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 100%;
-}
-
-.health-bar progress[value]::-webkit-progress-bar {
-  background-color: #e5652e;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
-  overflow: hidden;
-}
-
-.health-bar progress[value]::-webkit-progress-value {
-  background-color: #70cb1b;
-}
-
-.health-bar p {
-  position: absolute;
-  width: 100%;
-  font-weight: bold;
-  color: black;
-  bottom: -10px;
-}
-
-.arena-container .players-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-
-.players-container .player {
-  display: flex;
-  flex-direction: column;
-  max-height: 80%;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: gray;
-}
-
-.player .image-content img {
-  width: 250px;
-  height: 300px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-/* new */
-
 ul {
   list-style-type: none;
   padding: 0px;
   margin: 0px;
 }
+
 .battle-area {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 800px;
 }
 
-.boss-area .img-content img {
+.player-area .img-content img {
   width: 70%;
 }
 
@@ -383,67 +238,9 @@ ul {
   cursor: pointer;
 }
 
-.player-area .img-content img {
-  width: 70%;
-}
-
-.players-container .active-players {
-  display: flex;
-  flex-direction: column;
-}
-
-.active-players .players-list {
-  display: flex;
-  flex-direction: column;
-  max-height: 400px;
-  overflow: scroll;
-}
-
-.players-list .active-player-item {
-  display: flex;
-  align-items: center;
-  background-color: #b12a5b;
-  border-radius: 8px;
-  margin: 5px;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.active-player-item .player-image {
-  width: 64px;
-  height: 64px;
-  background-color: gray;
-  margin-right: 15px;
-  border-radius: 8px;
-}
-
-.active-player-item .player-content {
-  flex-direction: column;
-  text-align: left;
-}
-
-.players-container .attack-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.attack-container button {
-  height: 60px;
-  font-size: 18px;
-  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  background-size: 200% 200%;
-  animation: gradient-animation 4s ease infinite;
-}
 
 /* Effects */
-.boss-container .attacking {
-  animation: shake 1.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
+
 
 .attack-area .attacking {
   animation: shake 1.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
@@ -452,9 +249,6 @@ ul {
   perspective: 1000px;
 }
 
-.boss-container .hit {
-  animation: hit-bounce 1s ease;
-}
 
 @keyframes shake {
   10%,
@@ -497,221 +291,6 @@ ul {
   }
 }
 
-/* Toast */
-#toast {
-  visibility: hidden;
-  max-width: 500px;
-  height: 90px;
-  margin: auto;
-  background-color: gray;
-  color: #fff;
-  text-align: center;
-  border-radius: 10px;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  bottom: 30px;
-  font-size: 17px;
-  white-space: nowrap;
-}
-
-#toast #desc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 28px;
-  font-weight: bold;
-  height: 90px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.boss-container .loading-indicator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 25px;
-}
-
-.boss-container .loading-indicator p {
-  font-weight: bold;
-  font-size: 28px;
-}
-
-/* Toast */
-#toast {
-  visibility: hidden;
-  max-width: 500px;
-  height: 90px;
-  margin: auto;
-  background-color: gray;
-  color: #fff;
-  text-align: center;
-  border-radius: 10px;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  right: 0;
-  bottom: 30px;
-  font-size: 17px;
-  white-space: nowrap;
-}
-
-#toast #desc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 28px;
-  font-weight: bold;
-  height: 90px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-#toast.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 2s,
-    fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 4s,
-    fadeout 0.5s 4.5s;
-}
-
-@-webkit-keyframes fadein {
-  from {
-    bottom: 0;
-    opacity: 0;
-  }
-  to {
-    bottom: 30px;
-    opacity: 1;
-  }
-}
-
-@keyframes fadein {
-  from {
-    bottom: 0;
-    opacity: 0;
-  }
-  to {
-    bottom: 30px;
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes expand {
-  from {
-    min-width: 50px;
-  }
-  to {
-    min-width: 350px;
-  }
-}
-
-@keyframes expand {
-  from {
-    min-width: 50px;
-  }
-  to {
-    min-width: 350px;
-  }
-}
-@-webkit-keyframes stay {
-  from {
-    min-width: 350px;
-  }
-  to {
-    min-width: 350px;
-  }
-}
-
-@keyframes stay {
-  from {
-    min-width: 350px;
-  }
-  to {
-    min-width: 350px;
-  }
-}
-@-webkit-keyframes shrink {
-  from {
-    min-width: 350px;
-  }
-  to {
-    min-width: 50px;
-  }
-}
-
-@keyframes shrink {
-  from {
-    min-width: 350px;
-  }
-  to {
-    min-width: 50px;
-  }
-}
-
-@-webkit-keyframes fadeout {
-  from {
-    bottom: 30px;
-    opacity: 1;
-  }
-  to {
-    bottom: 60px;
-    opacity: 0;
-  }
-}
-
-@keyframes fadeout {
-  from {
-    bottom: 30px;
-    opacity: 1;
-  }
-  to {
-    bottom: 60px;
-    opacity: 0;
-  }
-}
-
-/* Loading Indicator */
-/* Code found on https://loading.io/css/ */
-.lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #fff;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
-}
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 /* Sidebar */
 
@@ -734,9 +313,6 @@ ul {
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
-.sidebar .nav-link {
-  color: rgb(255, 238, 5);
-}
 
 /* Status Circles */
 

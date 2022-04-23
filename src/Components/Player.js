@@ -1,26 +1,50 @@
-import React from "react";
+import React from 'react';
+import {
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
-const Player = ({ characterNFT, title }) => {
+const Player = ({ character, playerPath, isLoading }) => {
+  const { path, percentage } = playerPath;
+
+  if (character !== null) {
+    const playerName =
+      character.trainer == undefined ? 'You' : character.trainer;
+  }
+
+  if (isLoading) {
+    return <div></div>;
+  }
+
   return (
-    <div className="players-container">
-      <div className="player-container">
-        <h2>{title}</h2>
-        <div className="player">
-          <div className="image-content">
-            <h2>{characterNFT.name}</h2>
-            <img
-              src={`https://cloudflare-ipfs.com/ipfs/${characterNFT.imageURI}`}
-              alt={`Character ${characterNFT.name}`}
-            />
-            <div className="health-bar">
-              <progress value={characterNFT.hp} max={characterNFT.maxHp} />
-              <p>{`${characterNFT.hp} / ${characterNFT.maxHp} HP`}</p>
-            </div>
-          </div>
-          <div className="stats">
-            <h4>{`⚔️ Attack Damage: ${characterNFT.attackDamage}`}</h4>
-          </div>
+    <div className="player-area">
+      <h4>{character && character.trainer}</h4>
+      <CircularProgressbarWithChildren
+        value={percentage}
+        styles={buildStyles({
+          strokeLinecap: 'butt',
+          pathTransitionDuration: 0.5,
+          pathColor: path,
+          trailColor: '#d6d6d6',
+        })}
+      >
+        <div className="img-content">
+          <img
+            src={`https://cloudflare-ipfs.com/ipfs/${character.imageURI}`}
+            alt={`Character ${character.name}`}
+          />
         </div>
+      </CircularProgressbarWithChildren>
+      <div className="boss-info mt-3">
+        <ul>
+          <li>{character.name}</li>
+          <li>
+            {character.hp}/{character.maxHp} HP
+          </li>
+          <li>⚔️{character.attackDamage}</li>
+          <li>{character.type == undefined ? '' : character.type}</li>
+        </ul>
       </div>
     </div>
   );
