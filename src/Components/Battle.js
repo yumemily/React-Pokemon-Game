@@ -168,7 +168,7 @@ const Battle = ({
       }
     };
 
-    if (gameContract && characterNFT && bossLoading) {
+    if (gameContract) {
       fetchBoss();
       console.log('Battle component mounted');
     }
